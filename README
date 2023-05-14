@@ -1,10 +1,23 @@
+NOTE:
+you need to install virtualenv
+
 David:
 Username: david 
 Password: llagas123
+
+Sumin:
+Username: sumin 
+Password: subaik123
 
 Superuser:
 Username: superuser 
 Password: test9832
 
+to start the virtual env:
 
-you need to install virtualenv
+source usability_project/bin/activate
+
+to runserver from there:
+
+cd usability_website
+python manage.py runserver
