@@ -19,16 +19,42 @@
 
     <body class="bg-gray-100"> 
         <nav class="flex items-center justify-between px-4 py-6 bg-orange-600">
-            <div>
-                <a href="/" class="text-xl text-white">Usability Chat</a>
+            <div class="flex items-center justify-stretch">
+                <div class="flex items-center justify-normal px-4">
+                    <a href="/" class="text-2xl text-white">Home Page</a>
+                    
+                </div>
+
+                <div class="flex items-center justify-normal px-4">
+                    <a href="/about/" class="text-xl text-white hover:text-gray-200">About</a>
+                </div>
+                
+                {% if request.user.is_authenticated %}
+                    <div class="flex items-center justify-normal px-4">
+                        <a href="/message/" class="text-xl text-white hover:text-gray-200">Message</a>
+                    </div>
+
+                    <div class="flex items-center justify-normal px-4">
+                        <a href="/rooms/" class="text-xl text-white hover:text-gray-200">Community</a>
+                    </div>
+
+                    <div class="flex items-center justify-normal px-4">
+                        <a href="/resources/" class="text-xl text-white hover:text-gray-200">Resources</a>
+                    </div>
+                {% endif %}
             </div>
+
+
 
             <div class="flex items-center space-x-4">
 
                 {% if request.user.is_authenticated %}
-                    <a href="/rooms/" class="text-white hover:text-gray-200">Rooms</a>
+                    <a href="/profile/" class="text-white hover:text-gray-200">Profile</a>
+                    
+                    <a href="/status/" class="text-white hover:text-gray-200">Status</a>
 
                     <a href="/logout/" class="px-5 py-3 rounded-xl text-white bg-orange-500 hover:bg-orange-700">Log out</a>
+                    <a class="text-white text-xs">Signed in as: {{ request.user }}</a>
                 {% else %}
                     <a href="/login/" class="text-white hover:text-gray-200">Log in</a>
         
