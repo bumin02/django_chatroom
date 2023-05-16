@@ -8,6 +8,9 @@ from .models import Message, Room
 def rooms(request):
     rooms = Room.objects.all()
 
+    for room in rooms:
+        print(room.name)
+
     return render(request, 'room/rooms.html', {'rooms': rooms})
 
 @login_required
