@@ -1,7 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
 # Create your models here.
-class Student(models.Model):
-    pass
+class Chat(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    
+# class Message(models.Model):
+#     chat = models.ForeignKey(Chat, related_name='chats', on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, related_name='chats', on_delete=models.CASCADE)
+#     content = models.TextField()
+#     date_added = models.DateTimeField(auto_now_add=True)
+    
+#     class Meta:
+#         ordering = ('date_added',)

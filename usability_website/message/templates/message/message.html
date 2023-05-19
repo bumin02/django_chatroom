@@ -1,74 +1,98 @@
 {% extends 'core/base.html' %}
 
-{% block title %} Messages | {% endblock %}
+{% block title %}{{ chat.name }} | {% endblock %}
 
 {% block content %}
-<div class="lg:p-10 text-center">
-    <h1 class="text-3xl lg:text-6xl text-black">Message</h1>
+<div class="p-10 lg:p-20 text-center">
+    <h1 class="text-3xl lg:text-6xl text-black">{{ chat.name }}</h1>
 </div>
 
-<div class="text-center text-black">
-    <p>Chat with your friends!</p>
-</div>
+<div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
+    <div class="chat-messages space-y-3" id="chat-messages">
+        <div class="p-4 bg-gray-200 rounded-xl">
+            <p class="font-semibold">Username</p>
+            <p>Message here...</p>
+        </div>
 
-<div class="flex">
-    <div class="w-1/4 p-4">
-        {% for i in users %}
-            <div class="mb-3">
-                <div class="p-4 bg-white shadow rounded-xl text-center">
-                    <h2 class="mb-5 text-2xl font-semibold">{{ i.username}} 
-                        {% if i.first_name %}
-                            ({{ i.first_name }})
-                        {% endif %} </h2>
-                    <a class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}')">Chat</a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+        <div class="p-4 bg-gray-200 rounded-xl">
+            <p class="font-semibold">Username</p>
+            <p>Message here...</p>
+        </div>
 
-    <div class="w-3/4 p-4">
-        <div id="chatbox" class="hidden">
-            <div class="p-10 text-center">
-                <h1 class="text-3xl lg:text-6xl text-black" id="chat-username"></h1>
-            </div>
-
-            <div class="w-full mx-auto p-4 bg-white rounded-xl">
-                <div class="chat-messages space-y-3" id="chat-messages">
-                    {% for m in messages %}
-                        {% if m.content %}
-                            <b>{{ m.username }}</b>: {{ m.content }} <br>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="w-full mt-6 mx-auto p-4 bg-white rounded-xl flex">
-                <form id="chat-form" class="w-full flex">
-                    <input type="text" name="content" class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md" placeholder="Your message..." id="chat-message-input">
-                    <button type="submit" class="px-5 py-3 rounded-r-md text-white bg-orange-600 hover:bg-orange-700">Submit</button>
-                </form>
-            </div>
+        <div class="p-4 bg-gray-200 rounded-xl">
+            <p class="font-semibold">Username</p>
+            <p>Message here...</p>
         </div>
     </div>
+</div>
+
+<div class="lg:w-2/4 mt-6 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
+<form method="post" action="." class="flex">
+    <input type="text" name="content" class="flex-1 mr-3" placeholder="Your message..." id="chat-message-input">
+
+    <button 
+        class="px-5 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700"
+        id="chat-message-submit"
+    >Submit</button>
+</form>
 </div>
 
 {% endblock %}
 
 {% block scripts %}
+{{ chat.slug|json_script:"json-chatname" }}
+{{ request.user.username|json_script:"json-username" }}
+
 <script>
-    function openChat(username) {
-        document.getElementById('chat-username').textContent = username;
-        document.getElementById('chatbox').classList.remove('hidden');
+    const chatName = JSON.parse(document.getElementById('json-chatname').textContent)
+    const userName = JSON.parse(document.getElementById('json-username').textContent)
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/message/'
+        + chatName
+        + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        console.log('onmessage')
+
+        const data = JSON.parse(e.data);
+
+        if (data.message) {
+            let html = '<div class="p-4 bg-gray-200 rounded-xl">';
+                html += '<p class="font-semibold">' + data.username + '</p>';
+                html += '<p>' + data.message + '</p></div>';
+            
+            document.querySelector('#chat-messages').innerHTML += html;
+            
+        } else {
+            alert('The message was empty!');
+        }
     }
 
-    document.getElementById('chat-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const input = document.getElementById('chat-message-input');
-        const message = input.value;
+    chatSocket.onclose = function(e) {
+        console.log('onclose')
+    }
 
-        // process the message
-        
-        input.value = ''; // Clear the input field after sending the message
-    });
+    //
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        e.preventDefault();
+
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': userName,
+            'chat': chatName
+        }));
+
+        messageInputDom.value = '';
+
+        return false;
+    }
+
 </script>
 {% endblock %}
