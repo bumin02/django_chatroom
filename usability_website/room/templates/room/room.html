@@ -39,7 +39,7 @@ const userName = JSON.parse(document.getElementById('json-username').textContent
 const chatSocket = new WebSocket(
     'ws://'
     + window.location.host
-    + '/ws/'
+    + '/ws/room/'
     + roomName
     + '/'
 );
