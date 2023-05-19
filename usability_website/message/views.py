@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 
 
-from .models import Chat#, Message
+from .models import Chat, Message
 
 @login_required
 # def message(request, slug):
@@ -31,8 +31,20 @@ def messages(request):
 
 @login_required
 def message(request, slug):
+
+    user = get_user_model()
+    users = user.objects.all()
+
     chat = Chat.objects.get(slug=slug)
-    # chat_history = Message.objects.filter(chat=chat).order_by('-date_added')[0:25][::-1]
+    chat_history = Message.objects.filter(chat=chat).order_by('-date_added')[0:25][::-1]
+    friends = Chat.objects.all()
+
+    for i in users:
+        print(type(i))
+        print(i == request.user.username)
+
+    print(type(request.user.username))
+    print(request.user.username)
 
     # return render(request, 'message/message.html', {'chat': chat, 'chat_history': chat_history})
-    return render(request, 'message/message.html', {'chat': chat})
+    return render(request, 'message/message.html', {'users': users, 'friends': friends, 'chat': chat, 'chat_history': chat_history})

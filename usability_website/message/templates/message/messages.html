@@ -8,49 +8,50 @@
     <h1 class="text-3xl lg:text-6xl text-black">Message</h1>
 </div>
 
-<div class="text-center text-black">
-    <p>Chat with your friends!</p>
-</div>
-
 <div class="flex">
     <div class="w-1/4 p-4">
-        {% for chat in chats %}
-            
+        {% for i in users %}
+            {% if i.username != request.user.username %}
             <div class="mb-3">
                 <div class="p-4 bg-white shadow rounded-xl text-center">
-                    <h2 class="mb-5 text-2xl font-semibold">{{ chat.name }}</h2>
+                    <h2 class="mb-5 text-2xl font-semibold">{{ i.username }}</h2>
+
+                    {% if request.user.username == "sumin" %}
+                        {% if i.username == "david" %} 
+                        <a href="{% url 'chat' 1 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        {% else %}
+                        <a href="{% url 'chat' 2 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if request.user.username == "david" %}
+                        {% if i.username == "sumin" %} 
+                        <a href="{% url 'chat' 1 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        {% else %}
+                        <a href="{% url 'chat' 3 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if request.user.username == "superuser" %}
+                        {% if i.username == "sumin" %} 
+                        <a href="{% url 'chat' 2 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        {% else %}
+                        <a href="{% url 'chat' 3 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        {% endif %}
+                    {% endif %}
                     
-                    <a href="{% url 'chat' chat.slug %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                    <!-- <a href="#" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a> -->
                 </div>
             </div>
-            
+            {% endif %}
         {% endfor %}
     </div>
 
-    <div class="w-3/4 p-4">
-        <div id="chatbox" class="hidden">
-            <div class="p-10 text-center">
-                <h1 class="text-3xl lg:text-6xl text-black" id="chat-username"></h1>
-            </div>
-
-            <div class="w-full mx-auto p-4 bg-white rounded-xl">
-                <div class="chat-messages space-y-3" id="chat-messages">
-                    {% for m in messages %}
-                        {% if m.content %}
-                            <b>{{ m.username }}</b>: {{ m.content }} <br>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="w-full mt-6 mx-auto p-4 bg-white rounded-xl flex">
-                <form id="chat-form" class="w-full flex">
-                    <input type="text" name="content" class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md" placeholder="Your message..." id="chat-message-input">
-                    <button type="submit" class="px-5 py-3 rounded-r-md text-white bg-orange-600 hover:bg-orange-700">Send</button>
-                </form>
-            </div>
-        </div>
+    <div class="w-3/4 p-4 flex flex-col items-center justify-center">
+        <div class="text-9xl">💬</div>
+        <p class="mt-4 text-xl text-center">Chat with friends!</p>
     </div>
+
 </div>
 
 {% endblock %}
