@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Users | {% endblock %}
+
+{% block content %}
+
+<div class="lg:p-10 text-center">
+    <h1 class="text-3xl lg:text-6xl text-black">Message</h1>
+</div>
+
+<div class="text-center text-black">
+    <p>Chat with your friends!</p>
+</div>
+
+<div class="flex">
+    <div class="w-1/4 p-4">
+        {% for chat in chats %}
+            
+            <div class="mb-3">
+                <div class="p-4 bg-white shadow rounded-xl text-center">
+                    <h2 class="mb-5 text-2xl font-semibold">{{ chat.name}}</h2>
+                    
+                    <a href="{% url 'chat' chat.slug %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                </div>
+            </div>
+            
+        {% endfor %}
+    </div>
+
+    <div class="w-3/4 p-4">
+        <div id="chatbox" class="hidden">
+            <div class="p-10 text-center">
+                <h1 class="text-3xl lg:text-6xl text-black" id="chat-username"></h1>
+            </div>
+
+            <div class="w-full mx-auto p-4 bg-white rounded-xl">
+                <div class="chat-messages space-y-3" id="chat-messages">
+                    {% for m in messages %}
+                        {% if m.content %}
+                            <b>{{ m.username }}</b>: {{ m.content }} <br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="w-full mt-6 mx-auto p-4 bg-white rounded-xl flex">
+                <form id="chat-form" class="w-full flex">
+                    <input type="text" name="content" class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md" placeholder="Your message..." id="chat-message-input">
+                    <button type="submit" class="px-5 py-3 rounded-r-md text-white bg-orange-600 hover:bg-orange-700">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function openChat(username, button) {
+        const chatUsername = document.getElementById('chat-username');
+        const chatbox = document.getElementById('chatbox');
+        const chatForm = document.getElementById('chat-form');
+        const chatMessageInput = document.getElementById('chat-message-input');
+        
+        chatUsername.textContent = username;
+        chatbox.classList.remove('hidden');
+
+        const previousButton = document.querySelector('.active-chat');
+        if (previousButton) {
+            previousButton.textContent = 'Chat';
+            previousButton.classList.remove('active-chat');
+        }
+
+        button.textContent = 'Chatting';
+        button.classList.add('active-chat');
+
+        document.getElementById('receiver').value = username;
+        
+        chatMessageInput.value = '';
+        chatMessageInput.focus();
+    }
+
+    document.getElementById('chat-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const input = document.getElementById('chat-message-input');
+        const message = input.value;
+
+        // process the message
+        
+        input.value = ''; // clear the input field after sending the message
+    });
+</script>
+{% endblock %}
