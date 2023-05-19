@@ -19,10 +19,12 @@ def messages(request):
     chats = Chat.objects.all()
     # chat_history = Chat.objects.filter(chat=chat).order_by('-date_added')[0:25][::-1]
 
+    print("hello?")
     for chat in chats:
         print(type(chat))
         print("chat name: ", chat.name)
         print("chat slug: ", chat.slug)
+    print("where is that")
 
     # return render(request, 'message/message.html', {'users': users, 'chat': chat, 'chat_history': chat_history})
     return render(request, 'message/messages.html', {'users': users, 'chats': chats})

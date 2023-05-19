@@ -18,7 +18,7 @@
             
             <div class="mb-3">
                 <div class="p-4 bg-white shadow rounded-xl text-center">
-                    <h2 class="mb-5 text-2xl font-semibold">{{ chat.name}}</h2>
+                    <h2 class="mb-5 text-2xl font-semibold">{{ chat.name }}</h2>
                     
                     <a href="{% url 'chat' chat.slug %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
                 </div>
