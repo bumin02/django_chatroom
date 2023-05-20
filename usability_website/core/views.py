@@ -26,3 +26,5 @@ def signup(request):
 
     return render(request, 'core/signup.html', {'form': form})
     
+def resources(request):
+    return render(request, 'core/resources.html')

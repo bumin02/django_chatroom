@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'room',
     'message',
     'profilestatus',
-
 ]
 
 MIDDLEWARE = [
