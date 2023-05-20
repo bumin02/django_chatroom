@@ -14,7 +14,18 @@
             {% if i.username != request.user.username %}
             <div class="mb-3">
                 <div class="p-4 bg-white shadow rounded-xl text-center">
-                    <h2 class="mb-5 text-2xl font-semibold">{{ i.username }}</h2>
+                    <h2 class="mb-3 text-2xl font-semibold">{{ i.username }}
+                        {% if i.first_name %} 
+                            ({{ i.first_name }})
+                        
+                        {% endif %}
+                    </h2>
+                    <p class="mb-3 italic text-gray-700">
+                        {% if i.last_name %} 
+                            {{ i.last_name }}
+                        
+                        {% endif %}
+                    </p>
 
                     {% if request.user.username == "sumin" %}
                         {% if i.username == "david" %} 
