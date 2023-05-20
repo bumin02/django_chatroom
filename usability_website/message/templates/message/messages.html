@@ -4,39 +4,58 @@
 
 {% block content %}
 
+<style>
+    .user-blocks {
+        margin-top: 68px;
+        margin-left: 150px;
+        margin-right: -150px;
+    }
+</style>
+
 <div class="lg:p-10 text-center">
     <h1 class="text-3xl lg:text-6xl text-black">Message</h1>
 </div>
 
 <div class="flex">
-    <div class="w-1/4 p-4">
+    <div class="w-1/4 p-4 user-blocks">
         {% for i in users %}
             {% if i.username != request.user.username %}
             <div class="mb-3">
                 <div class="p-4 bg-white shadow rounded-xl text-center">
-                    <h2 class="mb-5 text-2xl font-semibold">{{ i.username }}</h2>
+                    <h2 class="mb-3 text-2xl font-semibold">{{ i.username }}
+                        {% if i.first_name %} 
+                            ({{ i.first_name }})
+                        
+                        {% endif %}
+                    </h2>
+                    <p class="mb-3 italic text-gray-700">
+                        {% if i.last_name %} 
+                            {{ i.last_name }}
+                        
+                        {% endif %}
+                    </p>
 
                     {% if request.user.username == "sumin" %}
                         {% if i.username == "david" %} 
-                        <a href="{% url 'chat' 1 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        <a href="{% url 'chat' 1 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ i.username }}', this)">Chat</a>
                         {% else %}
-                        <a href="{% url 'chat' 2 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        <a href="{% url 'chat' 2 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ i.username }}', this)">Chat</a>
                         {% endif %}
                     {% endif %}
 
                     {% if request.user.username == "david" %}
                         {% if i.username == "sumin" %} 
-                        <a href="{% url 'chat' 1 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        <a href="{% url 'chat' 1 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ i.username }}', this)">Chat</a>
                         {% else %}
-                        <a href="{% url 'chat' 3 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        <a href="{% url 'chat' 3 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ i.username }}', this)">Chat</a>
                         {% endif %}
                     {% endif %}
 
                     {% if request.user.username == "superuser" %}
                         {% if i.username == "sumin" %} 
-                        <a href="{% url 'chat' 2 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        <a href="{% url 'chat' 2 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ i.username }}', this)">Chat</a>
                         {% else %}
-                        <a href="{% url 'chat' 3 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700" onclick="openChat('{{ i.username }}', this)">Chat</a>
+                        <a href="{% url 'chat' 3 %}" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ i.username }}', this)">Chat</a>
                         {% endif %}
                     {% endif %}
                     
