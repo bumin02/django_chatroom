@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ Resources }} | {% endblock %}
+
+{% block content %}
+
+<style>
+    .text-green {
+        color: green;
+    }
+
+    .user-blocks {
+        margin-top: 68px;
+        margin-left: 150px;
+        margin-right: -150px;
+    }
+
+    .my-messages {
+        margin-top: 68px;
+        margin-left: 550px;
+    }
+
+    .their-messages {
+        margin-top: 68px;
+        margin-right: 550px;
+    }
+    
+</style>
+
+<div class="p-10 lg:p-10 text-center">
+    <h1 class="text-3xl lg:text-6xl text-black">Resources</h1>
+</div>
+
+<div class="text-center text-black">
+    <p>Welcome to Resources (aka the Knowledge Repository)!</p>
+    <p>This is where you can share and access reading or learning materials for challenging computing concepts.</p>
+</div>
+
+<div class="flex">
+<!-- <div class="w-full flex-col flex-wrap items-left"> -->
+    <div class="w-1/4 p-4 user-blocks">
+        <div class="mb-3">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-3 text-2xl font-semibold">📌 Textbook for INFO2222</h2>
+                <p class="mb-3 italic text-gray-700">Tutor: Steve</p>
+                <a href="#" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ Hello }}', this)">View</a>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-3 text-2xl font-semibold">Found a cool thread explaining Diffie-Hellman Key Exchange on StackOverflow!</h2>
+                <p class="mb-3 italic text-gray-700">sumin b.</p>
+                <a href="#" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ Hello }}', this)">View</a>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-3 text-2xl font-semibold">Introduction to Modern Cryptography: Good textbook I found</h2>
+                <p class="mb-3 italic text-gray-700">david l.</p>
+                <a href="#" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ Hello }}', this)">View</a>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-3 text-2xl font-semibold">The 5 Nielson usability components: An academic journal</h2>
+                <p class="mb-3 italic text-gray-700">james k.</p>
+                <a href="#" class="px-5 py-3 block rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85" onclick="openChat('{{ Hello }}', this)">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-3/4 p-4">
+        <div id="chatbox">
+            <div class="p-2 lg:p-4 text-center">
+                <h1 class="text-3xl lg:text-3xl text-black">📌 Textbook for INFO2222</h1>
+            </div>
+
+            <div class="lg:w-3/4 mx-auto p-4 bg-white rounded-xl">
+                <div class="chat-messages space-y-3 flex flex-col" id="chat-messages">
+
+                    <div class="p-4 rounded-tl-3xl rounded-tr-3xl rounded-br-3xl bg-gray-100 their-messages">
+                        <p class="font-semibold">Tutor: Steve</p>
+                        <p>Hey guys, here is the textbook we will be using for the INFO2222 course:</p>
+                    </div>
+
+                    <div class="p-4 rounded-tl-3xl rounded-tr-3xl rounded-br-3xl bg-gray-100 their-messages">
+                        <p class="font-semibold">Tutor: Steve</p>
+                        <p>Computing 2 Usability and Security</p>
+                    </div>
+
+                    <div class="p-4 rounded-tl-3xl rounded-tr-3xl rounded-br-3xl bg-gray-100 their-messages">
+                        <p class="font-semibold">sumin</p>
+                        <p>Thanks Steve! This is great</p>
+                    </div>
+
+                    <div class="p-4 rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl bg-orange-100 my-messages">
+                        <p class="font-semibold text-green" style="text-align: right;">david</p>
+                        <p style="text-align: right;">Wow!</p>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <div class="lg:w-3/4 mt-6 mx-auto p-4 bg-white rounded-xl">
+                <form method="post" action="." class="flex">
+                    <input type="text" name="content" class="flex-1 mr-3" placeholder="Your message..." id="chat-message-input">
+            
+                <button 
+                    class="px-5 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-85"
+                    id="chat-message-submit"
+                    >Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+    function scrollToBottom() {
+        const objDiv = document.querySelector('#chat-messages');
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+    
+    scrollToBottom()    
+
+</script>
+
+{% endblock %}
