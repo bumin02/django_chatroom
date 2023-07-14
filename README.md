@@ -2,7 +2,7 @@
 
 This is a community server where students can come together to chat, share resources, and communicate with staff members, similar to Canvas, Moodle, or Edstem!
 
-![chat pic](/images/chatroom_sumin.png) ![resources pic](/images/chatroom_david.png)
+![chat pic](/images/chatroom_sumin.png "title1" =50%x) ![resources pic](/images/chatroom_david.png "title2" =50%x)
 
 NOTE:
 you need to install `virtualenv`
