@@ -1,29 +1,27 @@
-Welcome to django_chatroom!
+# Welcome to django_chatroom!
 
 This is a community server where students can come together to chat, share resources, and communicate with staff members, similar to Canvas, Moodle, or Edstem!
 
-![resources_pic][images/chatroom.jpg]
+![resources pic](/images/chatroom.jpg)
 
 NOTE:
-you need to install virtualenv
+you need to install `virtualenv`
 
-David:
+**David:**<br>
 Username: david 
 Password: llagas123
 
-Sumin:
+**Sumin:**<br>
 Username: sumin 
 Password: subaik123
 
-Superuser:
+**Superuser:**<br>
 Username: superuser 
 Password: test9832
 
 to start the virtual env:
-
-source usability_project/bin/activate
+`source usability_project/bin/activate`
 
 to runserver from there:
-
-cd usability_website
-python manage.py runserver
+`cd usability_website`
+`python manage.py runserver`
