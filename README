@@ -1,3 +1,9 @@
+Welcome to django_chatroom!
+
+This is a community server where students can come together to chat, share resources, and communicate with staff members, similar to Canvas, Moodle, or Edstem!
+
+![resources_pic][images/chatroom.jpg]
+
 NOTE:
 you need to install virtualenv
 
