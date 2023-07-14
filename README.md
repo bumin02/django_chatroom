@@ -8,20 +8,20 @@ NOTE:
 you need to install `virtualenv`
 
 **David:**<br>
-Username: david 
+Username: david <br>
 Password: llagas123
 
 **Sumin:**<br>
-Username: sumin 
+Username: sumin <br>
 Password: subaik123
 
 **Superuser:**<br>
-Username: superuser 
+Username: superuser <br>
 Password: test9832
 
-to start the virtual env:
+to start the virtual env:<br>
 `source usability_project/bin/activate`
 
-to runserver from there:
-`cd usability_website`
+to runserver from there:<br>
+`cd usability_website`<br>
 `python manage.py runserver`
